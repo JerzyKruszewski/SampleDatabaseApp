@@ -8,10 +8,22 @@ namespace SampleDatabaseApp.Model
 {
     public class SampleDatabaseContext : DbContext
     {
-        public static IConfigurationRoot configuration = new ConfigurationBuilder()
+        private static IConfigurationRoot configuration = new ConfigurationBuilder()
             .SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName)
             .AddJsonFile("appsettings.json", false)
             .Build();
+
+        private static SampleDatabaseContext _context;
+
+        public static SampleDatabaseContext GetSampleDatabaseContext()
+        {
+            if (_context is null)
+            {
+                _context = new SampleDatabaseContext();
+            }
+
+            return _context;
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

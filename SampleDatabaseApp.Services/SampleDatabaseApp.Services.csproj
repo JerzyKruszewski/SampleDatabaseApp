@@ -4,4 +4,8 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SampleDatabaseApp.Model\SampleDatabaseApp.Model.csproj" />
+  </ItemGroup>
+
 </Project>

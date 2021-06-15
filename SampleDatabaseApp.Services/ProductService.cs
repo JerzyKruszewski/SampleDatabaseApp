@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace SampleDatabaseApp.Services
 {
-    public class CustomerService : ICustomerService
+    public class ProductService : IProductService
     {
         private readonly SampleDatabaseContext _context;
 
-        public CustomerService(SampleDatabaseContext context = null)
+        public ProductService(SampleDatabaseContext context = null)
         {
             if (context is not null)
             {
@@ -25,45 +25,43 @@ namespace SampleDatabaseApp.Services
             _context = SampleDatabaseContext.GetSampleDatabaseContext();
         }
 
-        public async Task<Customer> Get(int id)
+        public async Task<Product> Get(int id)
         {
-            return await _context.Customers.SingleOrDefaultAsync(c => c.Id == id);
+            return await _context.Products.SingleOrDefaultAsync(p => p.Id == id);
         }
 
-        public async Task<Customer> Add(string firstName, string lastName)
+        public async Task<Product> Add(string name)
         {
-            Customer customer = new Customer()
+            Product product = new Product()
             {
                 Id = default(int),
-                FirstName = firstName,
-                LastName = lastName,
+                ProductName = name,
                 Orders = new List<Order>()
             };
 
-            await _context.Customers.AddAsync(customer);
+            await _context.Products.AddAsync(product);
             await _context.SaveChangesAsync();
 
-            return customer;
+            return product;
         }
 
-        public async Task<Customer> Update(int id, string firstName, string lastName)
+        public async Task<Product> Update(int id, string name)
         {
-            Customer customer = await Get(id);
+            Product product = await Get(id);
 
-            customer.FirstName = firstName;
-            customer.LastName = lastName;
+            product.ProductName = name;
 
-            _context.Customers.Update(customer);
+            _context.Products.Update(product);
             await _context.SaveChangesAsync();
 
-            return customer;
+            return product;
         }
 
         public async Task Delete(int id)
         {
-            Customer customer = await Get(id);
+            Product product = await Get(id);
 
-            _context.Customers.Remove(customer);
+            _context.Products.Remove(product);
 
             await _context.SaveChangesAsync();
         }

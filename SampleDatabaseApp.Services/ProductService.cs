@@ -14,14 +14,8 @@ namespace SampleDatabaseApp.Services
     {
         private readonly SampleDatabaseContext _context;
 
-        public ProductService(SampleDatabaseContext context = null)
+        public ProductService()
         {
-            if (context is not null)
-            {
-                _context = context;
-                return;
-            }
-
             _context = SampleDatabaseContext.GetSampleDatabaseContext();
         }
 
@@ -35,8 +29,7 @@ namespace SampleDatabaseApp.Services
             Product product = new Product()
             {
                 Id = default(int),
-                ProductName = name,
-                Orders = new List<Order>()
+                ProductName = name
             };
 
             await _context.Products.AddAsync(product);
@@ -48,6 +41,11 @@ namespace SampleDatabaseApp.Services
         public async Task<Product> Update(int id, string name)
         {
             Product product = await Get(id);
+
+            if (product is null)
+            {
+                return null;
+            }
 
             product.ProductName = name;
 
@@ -61,9 +59,19 @@ namespace SampleDatabaseApp.Services
         {
             Product product = await Get(id);
 
+            if (product is null)
+            {
+                return;
+            }
+
             _context.Products.Remove(product);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Product>> GetAll()
+        {
+            return await _context.Products.ToListAsync();
         }
     }
 }

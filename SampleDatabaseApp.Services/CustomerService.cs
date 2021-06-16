@@ -14,14 +14,8 @@ namespace SampleDatabaseApp.Services
     {
         private readonly SampleDatabaseContext _context;
 
-        public CustomerService(SampleDatabaseContext context = null)
+        public CustomerService()
         {
-            if (context is not null)
-            {
-                _context = context;
-                return;
-            }
-
             _context = SampleDatabaseContext.GetSampleDatabaseContext();
         }
 
@@ -36,8 +30,7 @@ namespace SampleDatabaseApp.Services
             {
                 Id = default(int),
                 FirstName = firstName,
-                LastName = lastName,
-                Orders = new List<Order>()
+                LastName = lastName
             };
 
             await _context.Customers.AddAsync(customer);
@@ -49,6 +42,11 @@ namespace SampleDatabaseApp.Services
         public async Task<Customer> Update(int id, string firstName, string lastName)
         {
             Customer customer = await Get(id);
+
+            if (customer is null)
+            {
+                return null;
+            }
 
             customer.FirstName = firstName;
             customer.LastName = lastName;
@@ -63,9 +61,19 @@ namespace SampleDatabaseApp.Services
         {
             Customer customer = await Get(id);
 
+            if (customer is null)
+            {
+                return;
+            }
+
             _context.Customers.Remove(customer);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Customer>> GetAll()
+        {
+            return await _context.Customers.ToListAsync();
         }
     }
 }

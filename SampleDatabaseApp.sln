@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31112.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleDatabaseApp.Model", "SampleDatabaseApp.Model\SampleDatabaseApp.Model.csproj", "{7F236911-2F28-4089-A2AA-FDF0779FE082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleDatabaseApp.Model", "SampleDatabaseApp.Model\SampleDatabaseApp.Model.csproj", "{7F236911-2F28-4089-A2AA-FDF0779FE082}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SampleDatabaseApp.Services", "SampleDatabaseApp.Services\SampleDatabaseApp.Services.csproj", "{A312CC9E-2DA9-4D57-9B74-D0136F8A344A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleDatabaseApp.Services", "SampleDatabaseApp.Services\SampleDatabaseApp.Services.csproj", "{A312CC9E-2DA9-4D57-9B74-D0136F8A344A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -15,6 +15,17 @@ namespace SampleDatabaseApp.Model
 
         private static SampleDatabaseContext _context;
 
+        public SampleDatabaseContext()
+        {
+
+        }
+
+        public SampleDatabaseContext(DbContextOptions<SampleDatabaseContext> options)
+            : base(options)
+        {
+
+        }
+
         public static SampleDatabaseContext GetSampleDatabaseContext()
         {
             if (_context is null)

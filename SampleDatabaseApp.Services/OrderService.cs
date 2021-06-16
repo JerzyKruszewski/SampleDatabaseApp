@@ -14,14 +14,8 @@ namespace SampleDatabaseApp.Services
     {
         private readonly SampleDatabaseContext _context;
 
-        public OrderService(SampleDatabaseContext context = null)
+        public OrderService()
         {
-            if (context is not null)
-            {
-                _context = context;
-                return;
-            }
-
             _context = SampleDatabaseContext.GetSampleDatabaseContext();
         }
 
@@ -51,6 +45,11 @@ namespace SampleDatabaseApp.Services
         {
             Order order = await Get(id);
 
+            if (order is null)
+            {
+                return null;
+            }
+
             order.ProductId = product.Id;
             order.Quantity = quantity;
 
@@ -64,9 +63,19 @@ namespace SampleDatabaseApp.Services
         {
             Order order = await Get(id);
 
+            if (order is null)
+            {
+                return;
+            }
+
             _context.Orders.Remove(order);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<Order>> GetAll()
+        {
+            return await _context.Orders.ToListAsync();
         }
     }
 }

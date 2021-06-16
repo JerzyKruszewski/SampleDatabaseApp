@@ -9,6 +9,8 @@ namespace SampleDatabaseApp.Services.Interfaces
 {
     public interface IProductService
     {
+        public Task<ICollection<Product>> GetAll();
+
         public Task<Product> Get(int id);
 
         public Task<Product> Add(string name);
